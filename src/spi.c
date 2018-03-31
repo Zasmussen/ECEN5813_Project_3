@@ -1,8 +1,9 @@
 /**
  * @file spi.c
- * @brief M
+ * @brief KL25Z SPI library
  *
- * M
+ * Low level Serial Peripheral Interface library
+ * for the KL25Z
  *
  * @author Zachary Asmussen
  * @date March 12th, 2018

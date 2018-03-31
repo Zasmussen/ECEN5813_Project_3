@@ -121,4 +121,15 @@ void PORTB_Toggle(uint8_t bit_num);
  */
 void PORTD_Toggle(uint8_t bit_num);
 
+
+
+/**
+ * @brief Initializes GPIO for NRF chip
+ *
+ * Sets correct registers to use SPI driver for communication with
+ * the NRF24L01
+ *
+ */
+void GPIO_nrf_init();
+
 #endif

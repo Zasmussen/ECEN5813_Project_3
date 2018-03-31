@@ -119,3 +119,17 @@ uint8_t free_words(void * src)
   free(src);
   return 0;
 }
+
+
+
+uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length)
+{
+
+}
+
+
+
+uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value)
+{
+  
+}

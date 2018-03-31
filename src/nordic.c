@@ -1,8 +1,9 @@
 /**
  * @file nordic.c
- * @brief M
+ * @brief HAL for the NRF24L01
  *
- * M
+ * High level abstraction library for communication
+ * with the NRF24L01 chip using SPI
  *
  * @author Zachary Asmussen
  * @date March 12th, 2018
@@ -23,7 +24,7 @@ void nrf_write_register(uint8_t reg, uint8_t value)
 
 }
 
-
+``
 
 uint8_t nrf_read_status()
 {

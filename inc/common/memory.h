@@ -94,24 +94,24 @@ uint8_t free_words(void * src);
 
 
 /**
-  * @brief
+  * @brief Performs a memory move with DMA
   *
-  * @param src
-  * @param dst
-  * @param length
-  * @return
+  * @param src is a byte pointer to the source of the move
+  * @param dst is a byte pointer to the destination of the move
+  * @param length is the amount of bytes to move
+  * @return is a byte pointer to the destination of the move
   */
 uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length);
 
 
 
 /**
-  * @brief
+  * @brief Performs a memory set with DMA
   *
-  * @param src
-  * @param dst
-  * @param length
-  * @return
+  * @param src is a byte pointer to the source of the set
+  * @param length is the amount of bytes to set
+  * @param value is the value to set the bytes to
+  * @return is a byte pointer to the destination of the move
   */
 uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value);
 

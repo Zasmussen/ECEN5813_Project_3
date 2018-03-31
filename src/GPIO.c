@@ -81,3 +81,9 @@ void PORTD_Toggle(uint8_t bit_num)
   GPIOD->PTOR |= (1 << bit_num);
   return;
 }
+
+
+void GPIO_nrf_init()
+{
+  
+}
