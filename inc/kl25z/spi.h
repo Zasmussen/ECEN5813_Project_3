@@ -12,7 +12,15 @@
 #ifndef __SPI_H__
 #define __SPI_H__
 
+#include <stdint.h>
+#include <stdlib.h>
+#include "MKL25Z4.h"
+#include "GPIO.h"
+#include "platform.h"
 
+#define SPI0_SS_PIN     (1 << 4)
+#define ENABLE_SS       (GPIOC->PDOR &= ~(SPI0_SS_PIN))
+#define DISABLE_SS      (GPIOC->PDOR |= (SPI0_SS_PIN))
 
 /**
  * @brief Initializes the SPI driver
@@ -34,7 +42,7 @@ void SPI_init();
  * @param byte is the byte read from SPI
  *
  */
-void SPI_read_byte(uint8_t byte);
+void SPI_read_byte(uint8_t * byte);
 
 
 

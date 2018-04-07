@@ -85,5 +85,23 @@ void PORTD_Toggle(uint8_t bit_num)
 
 void GPIO_nrf_init()
 {
-  
+  /* Allow port manipulation */
+  SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
+
+  /* Set MISO, MOSI, SCK, and PCS0 pins */
+  PORTC_PCR4 |= (PORT_PCR_MUX(1) | PORT_PCR_IRQC(0));  // PTC4 - SPI0_PCS0 ALT2
+  PORTC_PCR5 |= (PORT_PCR_MUX(2) | PORT_PCR_IRQC(0));  // PTC5 - SPI0_SCK ALT2
+  PORTC_PCR6 |= (PORT_PCR_MUX(2) | PORT_PCR_IRQC(0));  // PTC6 - SPI0_MOSI ALT2
+  PORTC_PCR7 |= (PORT_PCR_MUX(2) | PORT_PCR_IRQC(0));  // PTC7 - SPI0_MISO ALT2
+
+  PORTC_PCR0 |= (PORT_PCR_MUX(1) | PORT_PCR_IRQC(0));  // PTC4 - SPI0_PCS0 ALT2
+  /* SS pin setup */
+  GPIOC->PDDR |= (1<<4);
+  GPIOC->PDOR |= (1<<4);
+
+  /* CE pin setup */
+  GPIOC->PDDR |= (1<<0);
+  GPIOC->PDOR &= ~(1<<0);
+
+
 }

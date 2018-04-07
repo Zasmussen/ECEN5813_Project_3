@@ -53,7 +53,7 @@ endif
 
 # Sets all flags and compiler settings for build
 CSTD=c99
-COMMONFLAGS = -std=$(CSTD) -Wall -Werror -g -O0 -fgnu89-inline
+COMMONFLAGS = -std=$(CSTD) -Wall -g -O0 -fgnu89-inline #-Werror
 CPPFLAGS = $(VERB) -DPROJECT3
 LDFLAGS += -Wl,-Map=main.map$(ARMLDFLAGS)
 CFLAGS += $(COMMONFLAGS) $(ARMFLAGS)
@@ -62,7 +62,7 @@ ifdef CMOCKA
 	CFLAGS += -L/usr/lib -l cmocka
 endif
 
-TARGET = project2.elf
+TARGET = project3.elf
 
 
 INCLUDES = -I../inc/common -I../inc/kl25z -I../inc/CMSIS -I../inc/ -I../platform
@@ -94,7 +94,10 @@ build: $(TARGET)
 # Deletes object and output files
 .PHONY: clean
 clean:
-		rm -f *.o $(TARGET) *.i *.asm main.map
+	rm -f *.o $(TARGET) *.i *.asm main.map
+
+.PHONY: rebuild
+rebuild: clean build
 
 # Only compiles files into objects
 .PHONY: compile-all

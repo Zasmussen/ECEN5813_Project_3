@@ -13,6 +13,8 @@
 #define __MEMORY_H__
 #include <stdint.h>
 #include <stdlib.h>
+#include "MKL25Z4.h"
+
 
 
 /**
@@ -40,7 +42,7 @@ uint8_t * my_memcpy(uint8_t * src, uint8_t * dst, size_t length);
 
 
 /**
- * @brief Sets memory of length spcificed from src pointer to value
+ * @brief Sets memory of length specified from src pointer to value
  *
  * @param src is a byte pointer to the source of the memory set
  * @param length is an integer of bytes to be set to value
@@ -99,9 +101,10 @@ uint8_t free_words(void * src);
   * @param src is a byte pointer to the source of the move
   * @param dst is a byte pointer to the destination of the move
   * @param length is the amount of bytes to move
+  * @param burst is the byte size of the DMA transfer bursts, either 1, 2, or 4 bytes
   * @return is a byte pointer to the destination of the move
   */
-uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length);
+uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length, uint8_t burst);
 
 
 
@@ -111,8 +114,9 @@ uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length);
   * @param src is a byte pointer to the source of the set
   * @param length is the amount of bytes to set
   * @param value is the value to set the bytes to
+  * @param burst is the byte size of the DMA transfer bursts, either 1, 2, or 4 bytes
   * @return is a byte pointer to the destination of the move
   */
-uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value);
+uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value, uint8_t burst);
 
 #endif

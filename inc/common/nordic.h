@@ -11,8 +11,62 @@
  */
 #ifndef __NORDIC_H__
 #define __NORDIC_H__
+
+/* Includes */
 #include <stdint.h>
 #include <stdlib.h>
+#include "GPIO.h"
+#include "spi.h"
+
+/* NRF24L01 Register Addresses */
+#define NRF_CONFIG_REG                        (0x00)
+#define NRF_EN_AA_REG                         (0x01)
+#define NRF_EN_RXADDR_REG                     (0x02)
+#define NRF_SETUP_AW_REG                      (0x03)
+#define NRF_SETUP_RETR_REG                    (0x04)
+#define NRF_RF_CH_REG                         (0x05)
+#define NRF_RF_SETUP_REG                      (0x06)
+#define NRF_STATUS_REG                        (0x07)
+#define NRF_OBSERVE_TX_REG                    (0x08)
+#define NRF_CD_REG                            (0x09)
+#define NRF_RX_ADDR_P0_REG                    (0x0A)
+#define NRF_RX_ADDR_P1_REG                    (0x0B)
+#define NRF_RX_ADDR_P2_REG                    (0x0C)
+#define NRF_RX_ADDR_P3_REG                    (0x0D)
+#define NRF_RX_ADDR_P4_REG                    (0x0E)
+#define NRF_RX_ADDR_P5_REG                    (0x0F)
+#define NRF_TX_ADDR_REG                       (0x10)
+#define NRF_RX_PW_P0_REG                      (0x11)
+#define NRF_RX_PW_P1_REG                      (0x12)
+#define NRF_RX_PW_P2_REG                      (0x13)
+#define NRF_RX_PW_P3_REG                      (0x14)
+#define NRF_RX_PW_P4_REG                      (0x15)
+#define NRF_RX_PW_P5_REG                      (0x16)
+#define NRF_FIFO_STATUS_REG                   (0x17)
+#define NRF_DYNOD_REG                         (0x1C)
+#define NRF_FEATURE_REG                       (0x1D)
+
+/* NRF24LO1 Register Masks */
+#define NRF_CONFIG_POWER_UP                   (0x01)
+#define NRF_CONFIG_POWER_DOWN                 (0x00)
+#define NRF_CONFIG_POWER_UP_MASK              (0x02)
+#define NRF
+#define NRF
+#define NRF
+#define NRF
+
+/* NRF24L01 Commands */
+#define NRF_W_REGISTER_COMMAND                (0x20)
+#define NRF_R_RX_PAYLOAD_COMMAND              (0x61)
+#define NRF_W_TX_PAYLOAD_COMMAND              (0xA0)
+#define NRF_FLUSH_TX_COMMAND                  (0xE1)
+#define NRF_FLUSH_RX_COMMAND                  (0xE2)
+#define NRF_REUSE_TX_PL_COMMAND               (0xE3)
+#define NRF_ACTIVATE_COMMAND                  (0x50)
+#define NRF_R_RX_PL_WID_COMMAND               (0x60)
+#define NRF_W_ACK_PAYLOAD_COMMAND             (0xA8)
+#define NRF_W_TX_PAYLOAD_NOACK_COMMAND        (0xB0)
+#define NRF_NOP_COMMAND                       (0xFF)
 
 
 /**
