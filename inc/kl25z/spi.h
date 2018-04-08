@@ -18,9 +18,6 @@
 #include "GPIO.h"
 #include "platform.h"
 
-#define SPI0_SS_PIN     (1 << 4)
-#define ENABLE_SS       (GPIOC->PDOR &= ~(SPI0_SS_PIN))
-#define DISABLE_SS      (GPIOC->PDOR |= (SPI0_SS_PIN))
 
 /**
  * @brief Initializes the SPI driver

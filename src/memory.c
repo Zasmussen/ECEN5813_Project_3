@@ -23,16 +23,21 @@ uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
   }
 
   uint32_t i;
-  uint8_t * tmp = (uint8_t*) malloc(length);
-  for(i=0;i<length;i++)
+  if(src > dst)
   {
-    *(tmp+i) = *(src+i);
+    for(i=length;i>0;i--)
+    {
+      *(dst+i) = *(src+i);
+    }
   }
-  for(i=0;i<length;i++)
+  else
   {
-    *(dst+i) = *(tmp+i);
+    for(i=0;i<length;i++)
+    {
+      *(dst+i) = *(src+i);
+    }
   }
-  free(tmp);
+
   return dst;
 }
 
@@ -148,6 +153,7 @@ uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length, uint8_t burst
   NVIC_EnableIRQ(DMA0_IRQn);
   NVIC_ClearPendingIRQ(DMA0_IRQn);
   __enable_irq();
+
   switch(burst)
   {
     case 1:
@@ -181,14 +187,49 @@ uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value, uint8_t burst)
   {
     return NULL;
   }
-  uint8_t * temp = (uint8_t *) malloc(length);
-  uint32_t i;
-  for(i=0;i<length;i++)
+  DMA_SAR0 = DMA_SAR_SAR(&value);
+  DMA_DAR0 = DMA_DAR_DAR(src);
+  DMA_DSR_BCR0 = DMA_DSR_BCR_BCR(length);
+  DMA_DCR0 = DMA_DCR_LCH2(1)         // Channel linked to channel 1
+            |DMA_DCR_LCH1(2)         // Channel linked to channel 2
+            |DMA_DCR_LINKCC(0)       // Channel linking disabled
+            |DMA_DCR_D_REQ(1)        // ERQ bit cleared when BCR reaches 0
+            |DMA_DCR_DMOD(0)         // Destination buffer disabled
+            |DMA_DCR_SMOD(0)         // Source buffer disabled
+            |DMA_DCR_START(0)        // Start disabled
+            |DMA_DCR_DINC(1)         // Destination address increments
+            |DMA_DCR_SINC(0)         // Source address doesn't increment
+            |DMA_DCR_EADREQ(0)       // Asynchronous disabled
+            |DMA_DCR_AA(0)           // No auto align
+            |DMA_DCR_CS(0)           // Set to continuous until BCR = 0
+            |DMA_DCR_ERQ(0)          // Peripheral ignored
+            |DMA_DCR_EINT(1);        // Interrupts disabled
+  NVIC_EnableIRQ(DMA0_IRQn);
+  NVIC_ClearPendingIRQ(DMA0_IRQn);
+  __enable_irq();
+  switch(burst)
   {
-    *(temp+i) = value;
+    case 1:
+      DMA_DCR0 |= DMA_DCR_SSIZE(1) | DMA_DCR_SSIZE(1);
+      DMA_DCR0 |= DMA_DCR_DSIZE(1) | DMA_DCR_DSIZE(1);
+    break;
+
+    case 2:
+      DMA_DCR0 |= DMA_DCR_SSIZE(2) | DMA_DCR_SSIZE(2);
+      DMA_DCR0 |= DMA_DCR_DSIZE(2) | DMA_DCR_DSIZE(2);
+    break;
+
+    case 4:
+      DMA_DCR0 |= DMA_DCR_SSIZE(0) | DMA_DCR_SSIZE(0);
+      DMA_DCR0 |= DMA_DCR_DSIZE(0) | DMA_DCR_DSIZE(0);
+    break;
+
+    default:
+      DMA_DCR0 |= DMA_DCR_SSIZE(1) | DMA_DCR_SSIZE(1);
+      DMA_DCR0 |= DMA_DCR_DSIZE(1) | DMA_DCR_DSIZE(1);
   }
-  memmove_dma(temp,src,length,burst);
-  return NULL;
+  DMA_DCR0 |= DMA_DCR_START(1);
+  return src;
 }
 
 void DMA0_IRQHandler()

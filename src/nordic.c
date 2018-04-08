@@ -29,8 +29,11 @@ uint8_t nrf_read_register(uint8_t reg)
 void nrf_write_register(uint8_t reg, uint8_t value)
 {
   ENABLE_SS;
+  uint8_t byte;
   SPI_write_byte(0x20|reg);
+  SPI_read_byte(&byte);
   SPI_write_byte(value);
+  SPI_read_byte(&byte);
   DISABLE_SS;
 }
 

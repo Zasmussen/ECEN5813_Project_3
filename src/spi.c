@@ -49,23 +49,16 @@ void SPI_read_byte(uint8_t * byte)
 
 void SPI_write_byte(uint8_t byte)
 {
-
-//  SPI_flush();
-//  uint8_t tx_empty = SPI0_S & SPI_S_SPTEF_MASK;
   while(!(SPI0_S & SPI_S_SPTEF_MASK));
   SPI0_D = byte;
 }
 
 void SPI_send_packet(uint8_t * p, size_t length)
 {
-  SPI_flush();
-  uint8_t tx_empty = SPI0_S & SPI_S_SPTEF_MASK;
   uint32_t i;
   for(i=0;i<length;i++)
   {
-    SPI0_D = *(p+i);
-    SPI_flush();
-    tx_empty = SPI0_S & SPI_S_SPTEF_MASK;
+    SPI_write_byte(*(p+i));
   }
 }
 

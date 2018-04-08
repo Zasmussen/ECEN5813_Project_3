@@ -53,8 +53,8 @@ endif
 
 # Sets all flags and compiler settings for build
 CSTD=c99
-COMMONFLAGS = -std=$(CSTD) -Wall -g -O0 -fgnu89-inline #-Werror
-CPPFLAGS = $(VERB) -DPROJECT3
+COMMONFLAGS = -std=$(CSTD) -Wall -g -O0 -fgnu89-inline  #-Werror
+CPPFLAGS = $(VERB) -DPROJECT3 #-Wl,--heap,500000000
 LDFLAGS += -Wl,-Map=main.map$(ARMLDFLAGS)
 CFLAGS += $(COMMONFLAGS) $(ARMFLAGS)
 

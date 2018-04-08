@@ -46,14 +46,32 @@
 #define NRF_DYNOD_REG                         (0x1C)
 #define NRF_FEATURE_REG                       (0x1D)
 
+
+
 /* NRF24LO1 Register Masks */
-#define NRF_CONFIG_POWER_UP                   (0x01)
-#define NRF_CONFIG_POWER_DOWN                 (0x00)
-#define NRF_CONFIG_POWER_UP_MASK              (0x02)
-#define NRF
-#define NRF
-#define NRF
-#define NRF
+/* CONFIG */
+#define NRF_CONFIG_PRIM_RX_MASK               (0x01)
+#define NRF_CONFIG_PWR_UP_MASK                (0x02)
+#define NRF_CONFIG_CRCO_MASK                  (0x04)
+#define NRF_CONFIG_EN_CRC_MASK                (0x08)
+#define NRF_CONFIG_MASK_MAX_RT_MASK           (0x10)
+#define NRF_CONFIG_MASK_TX_DS_MASK            (0x20)
+#define NRF_CONFIG_MASK_RX_DR_MASK            (0x40)
+/* RF_CH */
+#define NRF_RF_CH_RF_CH_MASK                  (0x7F)
+/* RF_SETUP */
+#define NRF_RF_SETUP_LNA_HCURR_MASK           (0x01)
+#define NRF_RF_SETUP_RF_PWR_MASK              (0x06)
+#define NRF_RF_SETUP_RF_DR_MASK               (0x08)
+#define NRF_RF_SETUP_PLL_LOCK_MASK            (0x10)
+/* STATUS */
+#define NRF_STATUS_TX_FULL_MASK               (0x01)
+#define NRF_STATUS_RX_P_NO_MASK               (0x0E)
+#define NRF_STATUS_MAX_RT_MASK                (0x10)
+#define NRF_STATUS_TX_DS_MASK                 (0x20)
+#define NRF_STATUS_RX_DR_MASK                 (0x40)
+
+
 
 /* NRF24L01 Commands */
 #define NRF_W_REGISTER_COMMAND                (0x20)
@@ -68,6 +86,11 @@
 #define NRF_W_TX_PAYLOAD_NOACK_COMMAND        (0xB0)
 #define NRF_NOP_COMMAND                       (0xFF)
 
+
+/* Slave Select Enable/Disable */
+#define SPI0_SS_PIN     (1 << 4)
+#define ENABLE_SS       (GPIOC->PDOR &= ~(SPI0_SS_PIN))
+#define DISABLE_SS      (GPIOC->PDOR |= (SPI0_SS_PIN))
 
 /**
  * @brief Reads a register in the NRF

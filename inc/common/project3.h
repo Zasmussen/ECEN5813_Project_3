@@ -3,13 +3,20 @@
 
 #include <stdint.h>
 #include "memory.h"
-#include "spi.h"
 #include "nordic.h"
 #include "debug.h"
 #include "platform.h"
+#include "string.h"
+#ifdef KL25Z
+#include "spi.h"
 #include "GPIO.h"
+#include "UART.h"
+#include "core_cm0plus.h"
+#endif
 
 void project3();
-
+void spi_test();
+void profiling();
+void reset_memory(uint8_t * src, uint8_t * dst);
 
 #endif
