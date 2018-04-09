@@ -15,8 +15,10 @@
 /* Includes */
 #include <stdint.h>
 #include <stdlib.h>
+#ifdef KL25Z
 #include "GPIO.h"
 #include "spi.h"
+#endif
 
 /* NRF24L01 Register Addresses */
 #define NRF_CONFIG_REG                        (0x00)
@@ -91,6 +93,8 @@
 #define SPI0_SS_PIN     (1 << 4)
 #define ENABLE_SS       (GPIOC->PDOR &= ~(SPI0_SS_PIN))
 #define DISABLE_SS      (GPIOC->PDOR |= (SPI0_SS_PIN))
+#define POWER_UP_NRF    (config = nrf_read_config(); nrf_write_config(config|NRF_CONFIG_PWR_UP_MASK);)
+#define POWER_DOWN_NRF  (config = nrf_read_config(); nrf_write_config(config&~(NRF_CONFIG_PWR_UP_MASK));)
 
 /**
  * @brief Reads a register in the NRF

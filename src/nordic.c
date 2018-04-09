@@ -14,13 +14,15 @@
 
 uint8_t nrf_read_register(uint8_t reg)
 {
+  uint8_t byte = 0;
+  #ifdef KL25Z
   ENABLE_SS;
-  uint8_t byte;
   SPI_write_byte(reg);
   SPI_read_byte(&byte);
   SPI_write_byte(reg);
   SPI_read_byte(&byte);
   DISABLE_SS;
+  #endif
   return byte;
 }
 
@@ -28,6 +30,7 @@ uint8_t nrf_read_register(uint8_t reg)
 
 void nrf_write_register(uint8_t reg, uint8_t value)
 {
+  #ifdef KL25Z
   ENABLE_SS;
   uint8_t byte;
   SPI_write_byte(0x20|reg);
@@ -35,6 +38,7 @@ void nrf_write_register(uint8_t reg, uint8_t value)
   SPI_write_byte(value);
   SPI_read_byte(&byte);
   DISABLE_SS;
+  #endif
 }
 
 
@@ -94,15 +98,45 @@ void nrf_write_rf_ch(uint8_t channel)
 
 void nrf_read_TX_ADDR(uint8_t * address)
 {
-//  uint8_t TX_ADDR = nrf_read_register(NRF_TX_ADDR_REG);
-  return;
+  #ifdef KL25Z
+  ENABLE_SS;
+  SPI_write_byte(NRF_TX_ADDR_REG);
+  SPI_read_byte(address);
+  SPI_write_byte(reg);
+  SPI_read_byte(address);
+  SPI_write_byte(reg);
+  SPI_read_byte(++address);
+  SPI_write_byte(reg);
+  SPI_read_byte(++address);
+  SPI_write_byte(reg);
+  SPI_read_byte(++address);
+  SPI_write_byte(reg);
+  SPI_read_byte(++address);
+  DISABLE_SS;
+  #endif
 }
 
 
 
 void nrf_write_TX_ADDR(uint8_t * tx_addr)
 {
-
+  #ifdef KL25Z
+  ENABLE_SS;
+  uint8_t byte;
+  SPI_write_byte(0x20|NRF_TX_ADDR_REG);
+  SPI_read_byte(&byte);
+  SPI_write_byte(*tx_addr);
+  SPI_read_byte(&byte);
+  SPI_write_byte(*(tx_addr+1));
+  SPI_read_byte(&byte);
+  SPI_write_byte(*(tx_addr+2));
+  SPI_read_byte(&byte);
+  SPI_write_byte(*(tx_addr+3));
+  SPI_read_byte(&byte);
+  SPI_write_byte(*(tx_addr+4));
+  SPI_read_byte(&byte);
+  DISABLE_SS;
+  #endif
 }
 
 
@@ -117,12 +151,16 @@ uint8_t nrf_read_fifo_status()
 
 void nrf_flush_tx_fifo()
 {
+  #ifdef KL25Z
   SPI_write_byte(NRF_FLUSH_TX_COMMAND);
+  #endif
 }
 
 
 
 void nrf_flush_rx_fifo()
 {
+  #ifdef KL25Z
   SPI_write_byte(NRF_FLUSH_RX_COMMAND);
+  #endif
 }

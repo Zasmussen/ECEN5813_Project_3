@@ -1,0 +1,49 @@
+*****PROFILING*****
+**memmove**
+Standard 10 Byte Memmove took 129 clock cycles
+Standard 100 Byte Memmove took 212 clock cycles
+Standard 1000 Byte Memmove took 1399 clock cycles
+Standard 5000 Byte Memmove took 6651 clock cycles
+My 10 Byte Memmove took 344 clock cycles
+My 100 Byte Memmove took 2685 clock cycles
+My 1000 Byte Memmove took 26086 clock cycles
+My 5000 Byte Memmove took 130090 clock cycles
+DMA 10 Byte 1 Byte Burst Memmove took 333 clock cycles
+DMA 10 Byte 2 Byte Burst Memmove took 327 clock cycles
+DMA 10 Byte 4 Byte Burst Memmove took 333 clock cycles
+DMA 100 Byte 1 Byte Burst Memmove took 513 clock cycles
+DMA 100 Byte 2 Byte Burst Memmove took 417 clock cycles
+DMA 100 Byte 4 Byte Burst Memmove took 365 clock cycles
+DMA 1000 Byte 1 Byte Burst Memmove took 2315 clock cycles
+DMA 1000 Byte 2 Byte Burst Memmove took 1319 clock cycles
+DMA 1000 Byte 4 Byte Burst Memmove took 817 clock cycles
+DMA 5000 Byte 1 Byte Burst Memmove took 10319 clock cycles
+DMA 5000 Byte 2 Byte Burst Memmove took 5322 clock cycles
+DMA 5000 Byte 4 Byte Burst Memmove took 2821 clock cycles
+
+**memset**
+Standard 10 Byte Memset took 87 clock cycles
+Standard 100 Byte Memset took 151 clock cycles
+Standard 1000 Byte Memset took 830 clock cycles
+Standard 5000 Byte Memset took 3832 clock cycles
+My 10 Byte Memset took 284 clock cycles
+My 100 Byte Memset took 2264 clock cycles
+My 1000 Byte Memset took 22066 clock cycles
+My 5000 Byte Memset took 110068 clock cycles
+DMA 10 Byte 1 Byte Burst Memset took 331 clock cycles
+DMA 10 Byte 2 Byte Burst Memset took 319 clock cycles
+DMA 10 Byte 4 Byte Burst Memset took 318 clock cycles
+DMA 100 Byte 1 Byte Burst Memset took 512 clock cycles
+DMA 100 Byte 2 Byte Burst Memset took 318 clock cycles
+DMA 100 Byte 4 Byte Burst Memset took 319 clock cycles
+DMA 1000 Byte 1 Byte Burst Memset took 2313 clock cycles
+DMA 1000 Byte 2 Byte Burst Memset took 321 clock cycles
+DMA 1000 Byte 4 Byte Burst Memset took 320 clock cycles
+DMA 5000 Byte 1 Byte Burst Memset took 10316 clock cycles
+DMA 5000 Byte 2 Byte Burst Memset took 323 clock cycles
+DMA 5000 Byte 4 Byte Burst Memset took 323 clock cycles
+
+
+The standard library versions seem to be faster than my versions
+except when we reach large data transfers and that's where we
+really see a difference on the DMA side. 

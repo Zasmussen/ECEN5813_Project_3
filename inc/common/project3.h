@@ -13,6 +13,10 @@
 #include "UART.h"
 #include "core_cm0plus.h"
 #endif
+#ifdef BBB
+#include "stdio.h"
+#include "time.h"
+#endif
 
 void project3();
 void spi_test();

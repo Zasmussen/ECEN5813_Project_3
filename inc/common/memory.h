@@ -13,8 +13,9 @@
 #define __MEMORY_H__
 #include <stdint.h>
 #include <stdlib.h>
+#ifdef KL25Z
 #include "MKL25Z4.h"
-
+#endif
 
 
 /**

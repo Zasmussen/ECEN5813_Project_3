@@ -21,14 +21,19 @@ uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
   {
     return NULL;
   }
-
   uint32_t i;
-  if(src > dst)
+  if((src >= dst && src <= (dst+length))||(src >= dst && src <= (dst+length)))
   {
-    for(i=length;i>0;i--)
+    uint8_t * tmp = (uint8_t*) malloc(length);
+    for(i=0;i<length;i++)
     {
-      *(dst+i) = *(src+i);
+      *(tmp+i) = *(src+i);
     }
+    for(i=0;i<length;i++)
+    {
+      *(dst+i) = *(tmp+i);
+    }
+    free(tmp);
   }
   else
   {
@@ -129,6 +134,7 @@ uint8_t free_words(void * src)
 
 uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length, uint8_t burst)
 {
+  #ifdef KL25Z
   if(src==NULL || dst==NULL || length==0 || !(burst==1||burst==2||burst==4))
   {
     return NULL;
@@ -176,13 +182,15 @@ uint8_t * memmove_dma(uint8_t * src, uint8_t * dst, size_t length, uint8_t burst
       DMA_DCR0 |= DMA_DCR_DSIZE(1) | DMA_DCR_DSIZE(1);
   }
   DMA_DCR0 |= DMA_DCR_START(1);
-  return NULL;
+  #endif
+  return dst;
 }
 
 
 
 uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value, uint8_t burst)
 {
+  #ifdef KL25Z
   if(src==NULL || length==0 || !(burst==1||burst==2||burst==4))
   {
     return NULL;
@@ -229,9 +237,10 @@ uint8_t * memset_dma(uint8_t * src, size_t length, uint8_t value, uint8_t burst)
       DMA_DCR0 |= DMA_DCR_DSIZE(1) | DMA_DCR_DSIZE(1);
   }
   DMA_DCR0 |= DMA_DCR_START(1);
+  #endif
   return src;
 }
-
+#ifdef KL25Z
 void DMA0_IRQHandler()
 {
   if(DMA_DSR_BCR0 & DMA_DSR_BCR_DONE_MASK)
@@ -240,3 +249,4 @@ void DMA0_IRQHandler()
     DMA_DSR_BCR0 |= DMA_DSR_BCR_DONE_MASK;
   }
 }
+#endif

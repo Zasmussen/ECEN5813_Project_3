@@ -7,7 +7,7 @@
 # @author Zachary Asmussen
 # @date January 30th, 2018
 #
-SRCS = main.c  conversion.c data.c debug.c project1.c project2.c project3.c memory.c  circbuf.c nordic.c
+SRCS = main.c  conversion.c data.c debug.c  project3.c memory.c  circbuf.c nordic.c
 
 # Add in KL25Z files if platform is set to it
 ifeq ($(PLATFORM),KL25Z)
